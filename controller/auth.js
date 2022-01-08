@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 import * as userRepository from '../data/auth.js';
 
 export async function login(req, res, next)  {
@@ -8,11 +10,14 @@ export async function login(req, res, next)  {
 
 export async function createUser(req, res, next) {
     const { username, name, password, email } = req.body;
-    const id = Date.now().toString();
+    
+    const hashed = bcrypt.hashSync(password, 10); //password hashing
+    const id = Date.now().toString(); // fake id
     const signUp = await userRepository.haveUser(username, email);
-    if (signUp) return res.status(401).send({ message: '회원가입 실패'});
+    if (signUp) return res.status(401).send({ message: '회원가입 실패' });
     const users = await userRepository.getUsers();
-    users.push({ id, name, username, password, email });
+
+    users.push({ id, name, username, password: hashed, email });
     return res.status(201).send({message: '회원가입 성공'})
 }
 
