@@ -13,7 +13,7 @@ const options = {
         ],
         basePath: '/swagger'
     },
-    apis: ['./routes/*.js', './model/*.js'],
+    apis: ['./model/*.js'],
 }
 
 
