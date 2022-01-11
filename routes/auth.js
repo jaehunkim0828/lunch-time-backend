@@ -19,7 +19,9 @@ const userRouter = express.Router();
 *       - name: code
 *         in: Post
 *         type: string
-*         description: 로그인 정보(아이디)
+*         description: 로그인시 서버에 보낼 정보
+*         schema:
+*           $ref: '#/components/schemas/Login'
 *     responses:
 *       "200":
 *         discription: 로그인 성공
@@ -41,18 +43,22 @@ const userRouter = express.Router();
 *       - name: code
 *         in: Post
 *         type: string
-*         description: 회원가입 성공
+*         description: 회원가입할때 보내줘야할 데이터
+*         schema:
+*           $ref: '#/components/schemas/Register'
 *     responses:
 *       "200":
 *         discription: 회원가입 성공
 *       "400":
 *         discription: 잘못된 파라메타 전달
+*       schema:
+*           $ref: 
 */
 
 /**
 * @swagger
 * paths:
-*  /:name/password:
+*  /auth/:id/password:
 *   post:
 *     tags: [Auth]
 *     summary: 비밀번호 찾기
@@ -60,7 +66,9 @@ const userRouter = express.Router();
 *       - name: code
 *         in: Post
 *         type: string
-*         description: 로그인 정보(아이디)
+*         description: 비밀번호 찾기 할때 보내줄 데이터
+*         schema:
+*           $ref: '#/components/schemas/Find password'
 *     responses:
 *       "200":
 *         discription: 로그인 성공
