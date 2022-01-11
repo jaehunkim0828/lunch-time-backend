@@ -46,3 +46,9 @@ export async function changePassword(username, password) {
     })
     return changed;
 }
+
+export async function createUser(name, username, password, email) {
+    const id = Date.now().toString();
+    const hashed = bcrypt.hashSync(password, 10); //password hashing // fake id
+    users.push({id, name, username, password: hashed, email}); 
+}
