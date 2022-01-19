@@ -5,14 +5,12 @@
 *     components:
 *         schemas:
 *              Find store:
-*                 type: object
-*                   properties:
-*                       selectedTag:
-*                           type: array
-*                               item:
-*                                   type: string
-*                 example:
-*                   - selectedTag: [제육, 떡볶이, 라면, 삼겹살]
+
+*                     - selectedTag
+*                 properties:
+*                     - selectedTag:
+*                          type:  array
+*                          description: [제육, 피자, 떡볶이]
 */
 
 // api
