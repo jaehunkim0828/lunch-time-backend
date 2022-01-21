@@ -27,8 +27,6 @@ export async function getStore(req, res, next) {
         while(countIndex < 45) {
             const current = await foodRepository.findStoreApi(countIndex, logitude, latitude);
             datas.push(...current.data.documents);
-            console.log(datas.length);
-            console.log(current.data.meta);
             if (current.data.meta.is_end) {
                 break;
             };
@@ -37,4 +35,28 @@ export async function getStore(req, res, next) {
     }
     const result = await foodRepository.restyle(datas);
     return res.send(result);
+}
+
+export async function getFoodName(req, res, next) {
+    const foods = [];
+    for (let i = 0; i < 100; i += 1) {
+        const [logitude, latitude] = [37.5016 + i * 0.001, 127.0262 + i * 0.001];
+        let countIndex = 1;
+        while(countIndex < 45) {
+            const current = await foodRepository.findStoreApi(countIndex, logitude, latitude);
+            foods.push(...current.data.documents);
+            if (current.data.meta.is_end) {
+                break;
+            };
+            countIndex += 1;
+        }
+    }
+    const result = await foodRepository.restyleFood(foods);
+    const foodNameCount = {};
+    result.map(({tag}) => {
+        console.log(tag);
+        if (foodNameCount[tag]) return foodNameCount[tag] += 1
+        return foodNameCount[tag] = 1;
+    })
+    return res.send(foodNameCount);
 }

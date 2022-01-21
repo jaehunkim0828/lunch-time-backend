@@ -51,8 +51,6 @@ export async function findStoreApi(page, longitude, latitude) {
             page: page,
         }
     });
-
-    37.5016, 127.0262
 }
 
 export async function restyle(data) {
@@ -66,8 +64,8 @@ export async function restyle(data) {
                 tag: category[category.length - 1].trim(),
                 kind: category[1].trim(),
                 name: store['place_name'],
+                url: store['place_url']
             };
-            // tags.push(restyled);
             return restyled;
         } else {
             return {
@@ -76,6 +74,24 @@ export async function restyle(data) {
                 tag: category[category.length - 1].trim(),
                 kind: category[0].trim(),
                 name: store['place_name'],
+                url: store['place_url']
+            }
+        }
+    })
+}
+
+export async function restyleFood(data) {
+    return data.map((store, i) => {
+        // console.log(store);
+        const category = store['category_name'].split('>');
+        if (category.length > 2) {
+            const restyled = { 
+                tag: category[category.length - 1].trim(),
+            };
+            return restyled;
+        } else {
+            return {
+                tag: category[category.length - 1].trim(),
             }
         }
     })
