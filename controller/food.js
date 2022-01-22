@@ -22,35 +22,45 @@ export async function getTags(req, res, next) {
 export async function getStore(req, res, next) {
     const datas = [];
     for (let i = 0; i < 10; i += 1) {
-        const [logitude, latitude] = [37.5016 + i * 0.001, 127.0262 + i * 0.001];
-        let countIndex = 1;
-        while(countIndex < 45) {
-            const current = await foodRepository.findStoreApi(countIndex, logitude, latitude);
-            datas.push(...current.data.documents);
-            if (current.data.meta.is_end) {
-                break;
-            };
-            countIndex += 1;
+        for(let j = 0; j < 10; j += 1) {
+            const [logitude, latitude] = [37.4938 + j * 0.001, 127.0228 + i * 0.001];
+            let countIndex = 1;
+
+            while(countIndex < 45) {
+                const current = await foodRepository.findStoreApi(countIndex, logitude, latitude);
+                datas.push(...current.data.documents);
+                if (current.data.meta.is_end) {
+                    // console.log('end');
+                    break;
+                };
+                countIndex += 1;
+            }
         }
     }
     const result = await foodRepository.restyle(datas);
+    await foodRepository.setStores(result);
     return res.send(result);
 }
 
 export async function getFoodName(req, res, next) {
     const foods = [];
-    for (let i = 0; i < 100; i += 1) {
-        const [logitude, latitude] = [37.5016 + i * 0.001, 127.0262 + i * 0.001];
-        let countIndex = 1;
-        while(countIndex < 45) {
-            const current = await foodRepository.findStoreApi(countIndex, logitude, latitude);
-            foods.push(...current.data.documents);
-            if (current.data.meta.is_end) {
-                break;
-            };
-            countIndex += 1;
+    for (let i = 0; i < 10; i += 1) {
+        for(let j = 0; j < 10; j += 1) {
+            const [logitude, latitude] = [37.4938 + j * 0.001, 127.0228 + i * 0.001];
+            let countIndex = 1;
+
+            while(countIndex < 45) {
+                const current = await foodRepository.findStoreApi(countIndex, logitude, latitude);
+                foods.push(...current.data.documents);
+                if (current.data.meta.is_end) {
+                    // console.log('end');
+                    break;
+                };
+                countIndex += 1;
+            }
         }
     }
+    console.log(foods);
     const result = await foodRepository.restyleFood(foods);
     const foodNameCount = {};
     result.map(({tag}) => {
