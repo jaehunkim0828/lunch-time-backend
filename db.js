@@ -1,6 +1,6 @@
 import mysql from 'mysql2';
 
-import { config } from 'dotenv';
+import { config } from './config.js';
 
 const { host, username, database, password } = config.db;
 
