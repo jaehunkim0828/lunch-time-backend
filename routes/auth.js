@@ -21,9 +21,6 @@ const validateRegister = [
         .isEmail()
         .normalizeEmail()
         .withMessage('이메일으로 입력해주세요.'),
-    body('name')
-        .notEmpty()
-        .withMessage('이름을 입력해주세요.'),
     validate
 ]
 

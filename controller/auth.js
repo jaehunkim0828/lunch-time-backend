@@ -9,12 +9,12 @@ export async function login(req, res, next)  {
 }
 
 export async function createUser(req, res, next) {
-    const { username, name, password, email } = req.body;
+    const { username, password, email } = req.body;
     
     
     const signUp = await userRepository.haveUser(username, email);
     if (signUp) return res.status(401).send({ message: '회원가입 실패' });
-    await userRepository.createUser(name, username, password, email);
+    await userRepository.createUser(username, password, email);
     return res.status(201).send({message: '회원가입 성공'})
 }
 

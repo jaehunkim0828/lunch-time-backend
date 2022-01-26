@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
 import { config } from '../config.js';
+import { db } from '../db.js';
 
 const users = [
     { id: 1, username: 'jaehun0828', name: '김재훈', password: '123456', email: 'kkaa81@naver.com' },
@@ -14,7 +16,6 @@ export async function getUsers() {
 export async function findUser(username, password) {
     for (let i = 0; i < users.length; i += 1) {
         const user = users[i];
-        console.log(bcrypt.compareSync(password, user.password));
         if (bcrypt.compareSync(password, user.password) && username === user.username) {
             console.log('2')
             const token = jwt.sign({
@@ -31,7 +32,10 @@ export async function findUser(username, password) {
 }
 
 export async function haveUser(username, email) {
-    return users.find(user => user.username === username || user.email === email);
+    // return users.find(user => user.username === username || user.email === email);
+    const userFind = await db.execute('SELECT name, email FROM users WHERE name=? and email=?', [username, email]);
+    if (userFind[0].length) return true;
+    return false;
 }
 
 export async function changePassword(username, password) {
@@ -47,8 +51,9 @@ export async function changePassword(username, password) {
     return changed;
 }
 
-export async function createUser(name, username, password, email) {
-    const id = Date.now().toString();
-    const hashed = bcrypt.hashSync(password, 10); //password hashing // fake id
-    users.push({id, name, username, password: hashed, email}); 
+export async function createUser(username, password, email) {
+    const created = Date.now();
+    const hashed = bcrypt.hashSync(password, 10); //password hashing // fake id 
+    const user = await db.execute('INSERT INTO users (email, password, name, created_at) VALUES (?, ?, ?, ?)', [email, hashed, username, created]);
+    return;
 }
