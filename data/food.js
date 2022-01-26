@@ -57,6 +57,7 @@ export async function findStoreApi(page, longitude, latitude) {
 
 export async function restyle(data) {
     return data.map((store, i) => {
+        console.log(store);
         const category = store['category_name'].split('>');
         if (category.length > 2) {
             const restyled = { 
@@ -65,7 +66,9 @@ export async function restyle(data) {
                 tag: category[category.length - 1].trim(),
                 kind: category[1].trim(),
                 name: store['place_name'],
-                url: store['place_url']
+                url: store['place_url'],
+                x: store['x'],
+                y: store['y']
             };
             return restyled;
         } else {
@@ -75,7 +78,9 @@ export async function restyle(data) {
                 tag: category[category.length - 1].trim(),
                 kind: category[0].trim(),
                 name: store['place_name'],
-                url: store['place_url']
+                url: store['place_url'],
+                x: store['x'],
+                y: store['y']
             }
         }
     })
