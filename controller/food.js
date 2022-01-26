@@ -60,7 +60,6 @@ export async function getFoodName(req, res, next) {
             }
         }
     }
-    console.log(foods);
     const result = await foodRepository.restyleFood(foods);
     const foodNameCount = {};
     result.map(({tag}) => {
