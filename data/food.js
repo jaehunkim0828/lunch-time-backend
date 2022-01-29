@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { config } from '../config.js';
+import { db } from '../db.js';
 
 const kakaoKey = config.key.kakaoKey;
 const header = {
@@ -27,7 +28,11 @@ export async function getTags() {
 }
 
 export async function setStores(result) {
-    stores = result;
+    // stores = result;
+    result.map(async({ address, tag, kind, name, x, y }) => {
+        await db.execute('INSERT INTO stores (name, y, x, address, tag, kind) VALUES (?, ?, ?, ?, ?, ?)', [name, y, x, address, tag, kind])
+    })
+    return;
 }
 
 export async function findTagId(foodName) {
@@ -40,7 +45,6 @@ export async function findStore(recommend, food) {
 }
 
 export async function findStoreApi(page, longitude, latitude) {
-    // console.log('경도',longitude,'위도', latitude)
     const store = await axios({
         url:'https://dapi.kakao.com/v2/local/search/category.json',
         method:"GET",
@@ -48,7 +52,7 @@ export async function findStoreApi(page, longitude, latitude) {
         params:{
             category_group_code: 'FD6',
             //0.0005  = 50m
-            rect: `${latitude - 0.0005},${longitude - 0.0005},${latitude + 0.0005},${longitude + 0.0005}`,
+            rect: `${latitude - 0.00025},${longitude - 0.00025},${latitude + 0.00025},${longitude + 0.00025}`,
             page: page,
         }
     });
@@ -57,7 +61,6 @@ export async function findStoreApi(page, longitude, latitude) {
 
 export async function restyle(data) {
     return data.map((store, i) => {
-        console.log(store);
         const category = store['category_name'].split('>');
         if (category.length > 2) {
             const restyled = { 
@@ -76,7 +79,7 @@ export async function restyle(data) {
                 id: i,
                 address: store['address_name'],
                 tag: category[category.length - 1].trim(),
-                kind: category[0].trim(),
+                kind: category[category.length - 1].trim(),
                 name: store['place_name'],
                 url: store['place_url'],
                 x: store['x'],
