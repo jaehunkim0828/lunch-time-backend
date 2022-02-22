@@ -1,5 +1,3 @@
-import bcrypt from 'bcrypt';
-
 import * as userRepository from '../data/auth.js';
 
 export async function login(req, res, next)  {

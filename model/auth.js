@@ -22,21 +22,6 @@
 * @swagger
 *     components:
 *         schemas:
-*              Find store:
-*                 type: object
-*                 required:
-*                     - selectedTag
-*                     - password
-*                 properties:
-*                     selectedTag:
-*                         type: array
-*                         description: 제육, 떡볶이, 삼겹살, 라면
-*/
-
-/** 
-* @swagger
-*     components:
-*         schemas:
 *             Register:
 *                 type: object
 *                 required:
@@ -55,7 +40,7 @@
 *                         type: string
 *                         description: 김재훈
 *                     email:
-*                         type: email
+*                         type: string
 *                         description:  kkaa81@naver.com
 */
 
@@ -96,12 +81,12 @@
 *         schema:
 *           $ref: '#/components/schemas/Login'
 *     responses:
-*       "200":
-*         discription: 로그인 성공
+*       200:
+*         discription: '로그인 성공'
 *         contnet:
 *           application:json
-*       "400":
-*         discription: 잘못된 파라메타 전달
+*       400:
+*         discription: '잘못된 파라메타 전달'
 *     
 */
 
@@ -121,9 +106,9 @@
 *           $ref: '#/components/schemas/Register'
 *     responses:
 *       "200":
-*         discription: 회원가입 성공
+*         discription: '회원가입 성공'
 *       "400":
-*         discription: 잘못된 파라메타 전달
+*         discription: '잘못된 파라메타 전달'
 *       schema:
 *           $ref: 
 */
@@ -139,7 +124,7 @@
 *       - name: code
 *         in: Post
 *         type: string
-*         description: 비밀번호 찾기 할때 보내줄 데이터
+*         description: '비밀번호 찾기 할때 보내줄 데이터'
 *         schema:
 *           $ref: '#/components/schemas/Find password'
 *     responses:
@@ -148,5 +133,5 @@
 *         contnet:
 *           application:json
 *       "400":
-*         discription: 잘못된 파라메타 전달
+*         discription: '잘못된 파라메타 전달'
 */
