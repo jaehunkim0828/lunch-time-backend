@@ -11,7 +11,15 @@ const options = {
                 url: "http://localhost:8888"
             }
         ],
-        basePath: '/swagger'
+        host: 'localhost:8888',
+        basePath: '/',
+        securityDefinitions: {
+            api_key: {
+                type: 'apiKey',
+                in: 'header',
+                name: 'api_key'
+            }
+        }
     },
     apis: ['./model/*.js'],
 }
