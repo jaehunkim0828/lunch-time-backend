@@ -3,7 +3,7 @@ import { body } from 'express-validator';
 
 import * as userRepository from '../data/auth.js';
 import * as userController from '../controller/auth.js';
-import { validate } from '../middlewares/validator.js';
+// import { validate } from '../middlewares/validator.js';
 
 const userRouter = express.Router();
 
@@ -21,7 +21,7 @@ const validateRegister = [
         .isEmail()
         .normalizeEmail()
         .withMessage('이메일으로 입력해주세요.'),
-    validate
+    // validate
 ]
 
 const validateFindPassword = [
@@ -29,7 +29,7 @@ const validateFindPassword = [
         .trim()
         .notEmpty()
         .withMessage('바꾸실 비밀번호를 입력해주세요.'),
-    validate
+    // validate
 ]
 
 
