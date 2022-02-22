@@ -15,10 +15,6 @@ let stores = [];
 
 const tags = [];
 
-export async function getStores() {
-    return stores;
-}
-
 export async function getTag() {
     return tags;
 }
@@ -33,15 +29,6 @@ export async function setStores(result) {
         await db.execute('INSERT INTO stores (name, y, x, address, tag, kind) VALUES (?, ?, ?, ?, ?, ?)', [name, y, x, address, tag, kind])
     })
     return;
-}
-
-export async function findTagId(foodName) {
-    return tags.find(tag => tag.name === foodName);
-}
-
-export async function findStore(recommend, food) {
-    // return recommend.filter(store => !store.tag.includes(selectedFood[i]));
-    return recommend.filter(store => store.tag !== food.id);
 }
 
 export async function findStoreApi(page, longitude, latitude) {

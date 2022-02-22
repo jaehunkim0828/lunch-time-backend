@@ -2,17 +2,6 @@ import axios from 'axios';
 
 import * as foodRepository from '../data/food.js';
 
-export async function findStore(req, res, next) {
-    const { selectedFood, x, y } = req.body;
-    let recommend = await foodRepository.getStores();
-    for (let i = 0; i < selectedFood.length; i += 1) {
-        const food = await foodRepository.findTagId(selectedFood[i]);
-        if (!food) return res.status(404).send({ message: '없는 음식 이름 입니다.'});
-        recommend = await foodRepository.findStore(recommend, food);
-    }
-    res.send(recommend);
-}
-
 export async function getTags(req, res, next) {
     const tags = await foodRepository.getTags();
     return res.status(200).send(tags);
@@ -24,10 +13,10 @@ export async function getStore(req, res, next) {
     for (let i = 0; i < 920; i += 1) {
         for(let j = 0; j < 598; j += 1) {
             const datas = [];
-            const [longitude, latitude] = [37.4142 + j * 0.0005, 126.8175 + i * 0.0005];
+            const [longitude, latitude] = [37.4142 + j * 0.0005, 126.8915 + i * 0.0005];
             let countIndex = 1;
             //2 stop
-            if (latitude <= 126.8175 && longitude < 37.4192 ) {
+            if (latitude <= 126.8915 && longitude < 37.6217 ) {
                 //latitude longitude 이전은 넘기기.
                 console.log('pass', '경도',longitude,'위도', latitude);
                 continue;
@@ -44,9 +33,11 @@ export async function getStore(req, res, next) {
             console.log('done calling kakao api');
 
             //second, make it the data we want
+
             const result = await foodRepository.restyle(datas);
             console.log('done restyle');
             //third, input database new stores
+
             await foodRepository.setStores(result);
             console.log('done inserting data in db');
         }
@@ -56,8 +47,8 @@ export async function getStore(req, res, next) {
 
 export async function getFoodName(req, res, next) {
     const foods = [];
-    for (let i = 0; i < 10; i += 1) {
-        for(let j = 0; j < 10; j += 1) {
+    for (let i = 0; i < 1; i += 1) {
+        for(let j = 0; j < 1; j += 1) {
             const [logitude, latitude] = [37.4938 + j * 0.001, 127.0228 + i * 0.001];
             let countIndex = 1;
 
