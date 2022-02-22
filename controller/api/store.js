@@ -6,5 +6,5 @@ export async function findStore(req, res, next) {
     const stores = await storeRepository.getStores(x, y);
     const wantedStores = await storeRepository.selectedStores(stores[0], selected);
     const result = await storeRepository.restyle(wantedStores);
-    res.send(result);
+    res.send({ stores: result });
 }
