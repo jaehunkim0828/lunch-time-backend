@@ -14,7 +14,7 @@ const options = {
                 url: process.env.SWAGGER_HOST
             }
         ],
-        host: process.env.SWAGGER_HOST,
+        host: 'http://3.35.216.95',
         basePath: '/',
         securityDefinitions: {
             api_key: {
