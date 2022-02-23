@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 const options = {
     swaggerDefinition: {
         openapi: "3.0.0",
@@ -8,10 +11,10 @@ const options = {
         },
         servers: [
             {
-                url: "http://localhost:8888"
+                url: process.env.SWAGGER_HOST
             }
         ],
-        host: 'localhost:8888',
+        host: process.env.SWAGGER_HOST,
         basePath: '/',
         securityDefinitions: {
             api_key: {
