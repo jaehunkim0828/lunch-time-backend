@@ -15,13 +15,13 @@
 *                       type: array
 *                       items:
 *                           type: string
-*                           description: 떡볶이, 라면
+*                           default: "떡볶이"
 *                     x:
 *                       type: integer
-*                       description: '126.736684844239'
+*                       default: 126.9140
 *                     y:
 *                       type: integer
-*                       description: '37.4128984885048'
+*                       default: 37.5482
 */
 
 /** 
@@ -36,8 +36,10 @@
 *                 properties:
 *                     x:
 *                       type: integer
+*                       default: 126.9140
 *                     y:
 *                       type: integer
+*                       default: 37.5482
 */
 
 // api
@@ -49,18 +51,13 @@
 *   post:
 *     tags: [api]
 *     summary: tag 리스트 받기
-*     consumes:
-*       - "application/json"
-*       - "application/xml"
 *     description: tag들 받기
-*     produces:
-*       - "application:json"
-*     parameters:
-*       - name: body
-*         in: body
-*         required: true
-*         schema:
-*           $ref: '#/components/schemas/findtag'
+*     requestBody:
+*       required: true
+*       content:
+*           application/json:
+*               schema:
+*                   $ref: '#/components/schemas/findtag'
 *     responses:
 *       "200":
 *         discription: OK
@@ -69,8 +66,10 @@
 *               schema:
 *                   type: object
 *                   properties:
-*                       tags:
-*                           type: boolean
+*                      tags:
+*                        type: array
+*                        items:
+*                           type: string
 *       "404":
 *          description: tag not found
 *     
@@ -83,18 +82,13 @@
 *   post:
 *     tags: [api]
 *     summary: store 리스트 받기
-*     consumes:
-*       - "application/json"
-*       - "application/xml"
 *     description: stores 받기
-*     produces:
-*       - "application:json"
-*     parameters:
-*       - name: body
-*         in: body
-*         required: true
-*         schema:
-*           $ref: '#/components/schemas/findstore'
+*     requestBody:
+*       required: true
+*       content:
+*           application/json:
+*               schema:
+*                   $ref: '#/components/schemas/findstore'
 *     responses:
 *       "200":
 *         discription: OK
