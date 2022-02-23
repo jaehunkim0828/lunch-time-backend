@@ -11,10 +11,10 @@ const options = {
         },
         servers: [
             {
-                url: process.env.SWAGGER_HOST
+                url: 'http://localhost:8888'
             }
         ],
-        host: 'http://3.35.216.95',
+        host: 'http://localhost:8888',
         basePath: '/',
         securityDefinitions: {
             api_key: {
