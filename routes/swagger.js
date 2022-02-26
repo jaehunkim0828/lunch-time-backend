@@ -16,6 +16,7 @@ const options = {
         ],
         host: 'http://localhost:8888',
         basePath: '/',
+        scheme: ['http', 'https'],
         securityDefinitions: {
             api_key: {
                 type: 'apiKey',
