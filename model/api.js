@@ -22,6 +22,9 @@
 *                     y:
 *                       type: integer
 *                       default: 37.5482
+*                     page:
+*                       type: integer
+*                       default: 0
 */
 
 /** 
